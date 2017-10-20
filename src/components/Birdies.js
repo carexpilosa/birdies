@@ -12,39 +12,44 @@ class Birdies extends Component {
   }
 
   render() {
+    let values = this.state.values;
     return (
       <div>
         {
           this.props.birdies.map((item, idx) => {
+            let radioValue = 'radio_'+item.id;
             return <div key={item.id}>
               <label>{item.name}
                 <input type="checkbox" name={item.id} onClick={e => this._chgVal(e, item.id)}
-                       value={item.name} style={{visibility: 'hidden'}}/>
+                       value={item.name} style={{visibility: 'hidden'}} />
               </label>
               <button onClick={e => this._showDesc(e, item.id)}>DESC</button>
-              <label>Eins
-                <input type="radio" id={'radio_'+item.id} name={'radio_'+item.id}
-                       value="eins" onClick={e => this._chgVal(e, 'radio_'+item.id)} />
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <label>{values[radioValue] === 'red' ? 'Grün' : '[Grün]'}
+                <input type="radio" id={radioValue} name={radioValue}
+                       value="green" onClick={e => this._chgVal(e, radioValue)}
+                       style={{visibility: 'hidden'}} />
               </label>
-              <label>Zwo
-                <input type="radio" id={'radio_'+item.id} name={'radio_'+item.id}
-                       value="zwo" onClick={e => this._chgVal(e, 'radio_'+item.id)} />
+              <label>{values[radioValue] === 'red' ? '[Rot]' : 'Rot'}
+                <input type="radio" id={radioValue} name={radioValue}
+                       value="red" onClick={e => this._chgVal(e, radioValue)}
+                       style={{visibility: 'hidden'}} />
               </label>
             </div>
           })
         }
         <br/><br/>
         <div id="descDiv">
-          {
-            this.state.showDescID && this.getBirdyById(this.state.showDescID) ?
-              <div style={{backgroundColor: 'lightGreen'}}>
-                {
-                  `${this.getBirdyById(this.state.showDescID).name}:
-                    ${this.getBirdyById(this.state.showDescID).desc}`
-                }
-              </div>
-            : null
-          }
+        {
+          this.state.showDescID && this.getBirdyById(this.state.showDescID) ?
+            <div style={{backgroundColor: 'lightGreen'}}>
+              {
+                `${this.getBirdyById(this.state.showDescID).name}:
+                  ${this.getBirdyById(this.state.showDescID).desc}`
+              }
+            </div>
+          : null
+        }
         </div>
       </div>
     );
@@ -60,10 +65,13 @@ class Birdies extends Component {
 
   _chgVal(e, id) {
     let values = this.state.values;
-    if(! values[id]) {
+    /*if(! values[id]) {
       values[id] = [];
     }
-    values[id].push(e.target.value);
+    if (! values[id].includes(e.target.value)) {
+      values[id].push(e.target.value);
+    }*/
+    values[id] = e.target.value;
     this.setState({
       values
     });
