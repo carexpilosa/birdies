@@ -28,7 +28,7 @@ class Birdies extends Component {
               </label>
               <label>Zwo
                 <input type="radio" id={'radio_'+item.id} name={'radio_'+item.id}
-                      value="zwo" onClick={e => this._chgVal(e, 'radio_'+item.id)} />
+                       value="zwo" onClick={e => this._chgVal(e, 'radio_'+item.id)} />
               </label>
             </div>
           })
