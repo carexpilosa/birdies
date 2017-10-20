@@ -19,9 +19,17 @@ class Birdies extends Component {
             return <div key={item.id}>
               <label>{item.name}
                 <input type="checkbox" name={item.id} onClick={e => this._chgVal(e, item.id)}
-                       value={item.id} style={{visibility: 'hidden'}}/>
+                       value={item.name} style={{visibility: 'hidden'}}/>
               </label>
               <button onClick={e => this._showDesc(e, item.id)}>DESC</button>
+              <label>Eins
+                <input type="radio" id={'radio_'+item.id} name={'radio_'+item.id}
+                       value="eins" onClick={e => this._chgVal(e, 'radio_'+item.id)} />
+              </label>
+              <label>Zwo
+                <input type="radio" id={'radio_'+item.id} name={'radio_'+item.id}
+                      value="zwo" onClick={e => this._chgVal(e, 'radio_'+item.id)} />
+              </label>
             </div>
           })
         }
@@ -43,7 +51,6 @@ class Birdies extends Component {
   }
 
   _showDesc(e, id) {
-    console.log(id);
     if(id) {
       this.setState({
         showDescID: id
@@ -60,6 +67,7 @@ class Birdies extends Component {
     this.setState({
       values
     });
+    console.log(this.state.values);
   }
 
   getBirdyById(id) {
