@@ -31,7 +31,7 @@ let birdies = [
   },
   {
     id: 'dendrocoposMajor',
-    name: 'Bunt-Specht', 
+    name: 'Bunt-Specht',
     desc: 'häufigster Specht'
   }
 ];
