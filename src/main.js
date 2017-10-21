@@ -2,6 +2,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import Birdies from './components/Birdies';
 
 let birdies = [
@@ -36,9 +38,13 @@ let birdies = [
   }
 ];
 
+let store = createStore(() => {}, ['Use Redux']);
+
 ReactDOM.render(
-  <span>
-    <Birdies birdies={birdies} />
-  </span>,
+  <Provider store={store}>
+    <span>
+      <Birdies birdies={birdies} />
+    </span>
+  </Provider>,
   document.getElementById('app')
 );

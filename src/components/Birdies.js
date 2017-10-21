@@ -1,6 +1,8 @@
 'use strict';
 
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { testAction } from '../actions'
 
 class Birdies extends Component {
   constructor(props) {
@@ -94,4 +96,17 @@ class Birdies extends Component {
   }
 }
 
-export default Birdies;
+function mapStateToProps(state) {
+  return {
+
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    testAction: () => dispatch(testAction())
+  };
+}
+
+//export default Birdies;
+export default connect(mapStateToProps, mapDispatchToProps)(Birdies);
