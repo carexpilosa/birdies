@@ -12,40 +12,54 @@ class Birdies extends Component {
   }
 
   render() {
-    let values = this.state.values;
+    let {values, showDescID} = this.state;
+    let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
+      ? 'lightCoral' : 'lightGreen'
     return (
       <div>
-        {
-          this.props.birdies.map((item, idx) => {
-            let radioValue = 'radio_'+item.id;
-            return <div key={item.id}>
-              <label>{item.name}
-                <input type="checkbox" name={item.id} onClick={e => this._chgVal(e, item.id)}
-                       value={item.name} style={{visibility: 'hidden'}} />
-              </label>
-              <button onClick={e => this._showDesc(e, item.id)}>DESC</button>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <label>{values[radioValue] === 'red' ? 'Grün' : '[Grün]'}
-                <input type="radio" id={radioValue} name={radioValue}
-                       value="green" onClick={e => this._chgVal(e, radioValue)}
-                       style={{visibility: 'hidden'}} />
-              </label>
-              <label>{values[radioValue] === 'red' ? '[Rot]' : 'Rot'}
-                <input type="radio" id={radioValue} name={radioValue}
-                       value="red" onClick={e => this._chgVal(e, radioValue)}
-                       style={{visibility: 'hidden'}} />
-              </label>
-            </div>
-          })
-        }
+        <table>
+          <tbody>
+          {
+            this.props.birdies.map((item, idx) => {
+              let radioValue = 'radio_'+item.id;
+              let fontWeight = item.id === showDescID ? 'bold' : 'normal';
+              return <tr key={item.id}>
+                <td width="120">
+                  <label style={{fontWeight}}>{item.name}
+                    <input type="checkbox" name={item.id} onClick={e => this._chgVal(e, item.id)}
+                           value={item.name} style={{visibility: 'hidden'}} />
+                  </label>
+                </td><td>
+                  <button onClick={e => this._showDesc(e, item.id)}>DESC</button>
+                </td><td style={{backgroundColor: 'lightGreen'}}>
+                  <label>{values[radioValue] === 'red' ? 'Grün' : '[Grün]'}
+                    <input type="radio" id={radioValue} name={radioValue}
+                           value="green" onClick={e => this._chgVal(e, radioValue)}
+                           style={{visibility: 'hidden'}} />
+                  </label>
+                </td><td style={{backgroundColor: 'lightCoral'}}>
+                  <label>{values[radioValue] === 'red' ? '[Rot]' : 'Rot'}
+                    <input type="radio" id={radioValue} name={radioValue}
+                           value="red" onClick={e => this._chgVal(e, radioValue)}
+                           style={{visibility: 'hidden'}} />
+                  </label>
+                </td>
+              </tr>
+            })
+          }
+          </tbody>
+        </table>
         <br/><br/>
         <div id="descDiv">
         {
-          this.state.showDescID && this.getBirdyById(this.state.showDescID) ?
-            <div style={{backgroundColor: 'lightGreen'}}>
+          showDescID && this.getBirdyById(showDescID) ?
+            <div style={{
+              'backgroundColor': descriptionBgcolor,
+              'width': '400px'
+            }}>
               {
-                `${this.getBirdyById(this.state.showDescID).name}:
-                  ${this.getBirdyById(this.state.showDescID).desc}`
+                  `${this.getBirdyById(this.state.showDescID).name}:
+                   ${this.getBirdyById(this.state.showDescID).desc}`
               }
             </div>
           : null
@@ -65,12 +79,6 @@ class Birdies extends Component {
 
   _chgVal(e, id) {
     let values = this.state.values;
-    /*if(! values[id]) {
-      values[id] = [];
-    }
-    if (! values[id].includes(e.target.value)) {
-      values[id].push(e.target.value);
-    }*/
     values[id] = e.target.value;
     this.setState({
       values
