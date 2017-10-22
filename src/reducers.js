@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import TEST from './actions';
+import { TEST } from './actions';
 
 
 const INITIAL_STATE = {
@@ -7,10 +7,11 @@ const INITIAL_STATE = {
 };
 
 const testReducer = function (state = INITIAL_STATE, action) {
-  console.log(action);
-  switch (action) {
-    case 'TEST':
-      state.testValues[action.id] = {value: action.testValues};
+  console.log(action.type === TEST);
+  switch (action.type) {
+    case TEST:
+      console.log('in TEST');
+      state[action.id] = {value: action.testValue};
       console.log(state);
       return {...state};
 
