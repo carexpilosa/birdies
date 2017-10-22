@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { testAction } from '../actions'
+import { testAction } from '../actions';
 
 class Birdies extends Component {
   constructor(props) {
@@ -16,7 +16,8 @@ class Birdies extends Component {
   render() {
     let {values, showDescID} = this.state;
     let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
-      ? 'lightCoral' : 'lightGreen'
+      ? 'lightCoral' : 'lightGreen';
+    console.log(this.props);
     return (
       <div>
         <table>
@@ -85,7 +86,7 @@ class Birdies extends Component {
     this.setState({
       values
     });
-    console.log(this.state.values);
+    this.props.testAction({id: 'testValue', value: 'bla'})
   }
 
   getBirdyById(id) {
@@ -98,15 +99,14 @@ class Birdies extends Component {
 
 function mapStateToProps(state) {
   return {
-
+    testValues: state.testValues
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    testAction: () => dispatch(testAction())
+    testAction: (data) => dispatch(testAction(data))
   };
 }
 
-//export default Birdies;
 export default connect(mapStateToProps, mapDispatchToProps)(Birdies);

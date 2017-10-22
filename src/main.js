@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Birdies from './components/Birdies';
+import reducer from './reducers';
 
 let birdies = [
   {
@@ -38,7 +39,7 @@ let birdies = [
   }
 ];
 
-let store = createStore(() => {}, ['Use Redux']);
+let store = createStore(reducer);
 
 ReactDOM.render(
   <Provider store={store}>
