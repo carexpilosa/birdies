@@ -6,14 +6,15 @@ const INITIAL_STATE = {
   testValues: {},
 };
 
-const testReducer = function (state = INITIAL_STATE, action) {
-  console.log(action.type === TEST);
+const testReducer = function (state = {}, action) {
   switch (action.type) {
     case TEST:
-      console.log('in TEST');
-      state[action.id] = {value: action.testValue};
-      console.log(state);
-      return {...state};
+      console.log(action.id + ' => ' + action.value);
+      let newState = {...state};
+      newState[action.id] = action.value;
+      console.log('newState: ');
+      console.log(newState);
+      return newState;
 
     default:
       return state;

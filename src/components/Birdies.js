@@ -86,7 +86,7 @@ class Birdies extends Component {
     this.setState({
       values
     });
-    this.props.testAction({id: 'testValue', value: 'bla'})
+    this.props.testAction({id, value: e.target.value})
   }
 
   getBirdyById(id) {
