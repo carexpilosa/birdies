@@ -23,7 +23,7 @@ class Birdies extends Component {
         <table>
           <tbody>
           {
-            this.props.birdies.map((item, idx) => {
+            this.props.storeBirdies.map((item, idx) => {
               let radioValue = 'radio_'+item.id;
               let fontWeight = item.id === showDescID ? 'bold' : 'normal';
               return <tr key={item.id}>
@@ -99,7 +99,8 @@ class Birdies extends Component {
 
 function mapStateToProps(state) {
   return {
-    testValues: state.testValues
+    testValues: state.testValues,
+    storeBirdies: state.storeBirdies
   };
 }
 

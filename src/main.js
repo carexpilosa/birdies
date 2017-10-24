@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Birdies from './components/Birdies';
-import reducer from './reducers';
+import reducer, {INITIAL_STATE} from './reducers';
 
 let birdies = [
   {
@@ -36,10 +36,44 @@ let birdies = [
     id: 'dendrocoposMajor',
     name: 'Bunt-Specht',
     desc: 'häufigster Specht'
+  },
+  {
+    id: 'melanittaNigra',
+    name: 'Trauerente',
+    desc: 'Kleinste und leichteste der Melanitt-Arten'
+  },
+  {
+    id: 'falcoPeregrinus',
+    name: 'Wanderfalke',
+    desc: 'Schnellster Vogel: bis 360 km/h im Sturzflug'
+  },
+  {
+    id: 'falcoSubbuteo',
+    name: 'Baumfalke',
+    desc: 'Erinnert an riesigen Mauersegler'
+  },
+  {
+    id: 'limosaLimosa',
+    name: 'Uferschnepfe',
+    desc: 'hochbeinige, langhalsige, elegante Limikole'
+  },
+  {
+    id: 'TringaTotanus',
+    name: 'Rotschenkel',
+    desc: 'Wasserläufer ohne auffallende Kennzeichen'
+  },
+  {
+    id: 'larusArgentatus',
+    name: 'Silbermöwe',
+    desc: 'Bekannteste Möwe der Nordseeküste'
   }
 ];
 
-let store = createStore(reducer);
+let store = createStore(
+  reducer,
+  INITIAL_STATE,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(
   <Provider store={store}>

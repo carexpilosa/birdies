@@ -2,8 +2,11 @@ import {combineReducers} from 'redux';
 import { TEST } from './actions';
 
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   testValues: {},
+  storeBirdies: [
+    {id: 1, name: 'xxx', desc: 'derda'}
+  ]
 };
 
 const testReducer = function (state = {}, action) {
