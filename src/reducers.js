@@ -3,7 +3,6 @@ import { TEST } from './actions';
 
 
 export const INITIAL_STATE = {
-  testValues: {},
   storeBirdies: [
     {id: 1, name: 'xxx', desc: 'derda'}
   ]
@@ -12,12 +11,7 @@ export const INITIAL_STATE = {
 const testReducer = function (state = {}, action) {
   switch (action.type) {
     case TEST:
-      console.log(action.id + ' => ' + action.value);
-      let newState = {...state};
-      newState[action.id] = action.value;
-      console.log('newState: ');
-      console.log(newState);
-      return newState;
+      return [...action.data, ...state];
 
     default:
       return state;
@@ -25,7 +19,7 @@ const testReducer = function (state = {}, action) {
 }
 
 const reducer = combineReducers({
-  testValues: testReducer
+  storeBirdies: testReducer
 });
 
 export default reducer;

@@ -1,5 +1,7 @@
 export function testAction(data) {
-  return {type: TEST, ...data}
+  console.log('action');
+  console.log(data);
+  return {type: TEST, data: [...data]}
 }
 
 export const TEST = 'TEST';

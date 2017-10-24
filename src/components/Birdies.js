@@ -17,16 +17,16 @@ class Birdies extends Component {
     let {values, showDescID} = this.state;
     let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
       ? 'lightCoral' : 'lightGreen';
-    console.log(this.props);
+    let {storeBirdies} = this.props;
     return (
-      <div>
+      <div style={{ width: '350px', height: '50px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
         <table>
           <tbody>
           {
-            this.props.storeBirdies.map((item, idx) => {
+            storeBirdies.map((item, idx) => {
               let radioValue = 'radio_'+item.id;
               let fontWeight = item.id === showDescID ? 'bold' : 'normal';
-              return <tr key={item.id}>
+              return <tr key={idx}>
                 <td width="120">
                   <label style={{fontWeight}}>{item.name}
                     <input type="checkbox" name={item.id} onClick={e => this._chgVal(e, item.id)}
@@ -68,8 +68,15 @@ class Birdies extends Component {
           : null
         }
         </div>
+        <span id="indicator" ref={ c => this.indicator = c } />
       </div>
     );
+  }
+
+  scrollHandle(e) {
+    console.log('scrollHandle');
+    console.log(e.target.getBoundingClientRect().bottom);
+    console.log(this.indicator.getBoundingClientRect().bottom);
   }
 
   _showDesc(e, id) {
@@ -86,7 +93,8 @@ class Birdies extends Component {
     this.setState({
       values
     });
-    this.props.testAction({id, value: e.target.value})
+    let data = [{id: 'makapopoKladopo', name: 'Great Whisler', desc: 'kleener'}];
+    this.props.testAction(data)
   }
 
   getBirdyById(id) {
@@ -99,7 +107,6 @@ class Birdies extends Component {
 
 function mapStateToProps(state) {
   return {
-    testValues: state.testValues,
     storeBirdies: state.storeBirdies
   };
 }
