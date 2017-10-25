@@ -4,7 +4,7 @@ import { TEST } from './actions';
 
 export const INITIAL_STATE = {
   storeBirdies: [
-    {id: 1, name: 'xxx', desc: 'derda'}
+    {id: 1, name: 'xxx', desc: 'derda isses, der da, ich weiß es genau'}
   ]
 };
 

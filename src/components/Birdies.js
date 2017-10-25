@@ -18,44 +18,49 @@ class Birdies extends Component {
     let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
       ? 'lightCoral' : 'lightGreen';
     let {storeBirdies} = this.props;
+    console.log(showDescID);
+    console.log(this.getBirdyById(showDescID));
     return (
-      <div style={{ width: '350px', height: '50px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
-        <table>
-          <tbody>
-          {
-            storeBirdies.map((item, idx) => {
-              let radioValue = 'radio_'+item.id;
-              let fontWeight = item.id === showDescID ? 'bold' : 'normal';
-              return <tr key={idx}>
-                <td width="120">
-                  <label style={{fontWeight}}>{item.name}
-                    <input type="checkbox" name={item.id} onClick={e => this._chgVal(e, item.id)}
-                           value={item.name} style={{visibility: 'hidden'}} />
-                  </label>
-                </td><td>
-                  <button onClick={e => this._showDesc(e, item.id)}>DESC</button>
-                </td><td style={{backgroundColor: 'lightGreen'}}>
-                  <label>{values[radioValue] === 'red' ? 'Grün' : '[Grün]'}
-                    <input type="radio" id={radioValue} name={radioValue}
-                           value="green" onClick={e => this._chgVal(e, radioValue)}
-                           style={{visibility: 'hidden'}} />
-                  </label>
-                </td><td style={{backgroundColor: 'lightCoral'}}>
-                  <label>{values[radioValue] === 'red' ? '[Rot]' : 'Rot'}
-                    <input type="radio" id={radioValue} name={radioValue}
-                           value="red" onClick={e => this._chgVal(e, radioValue)}
-                           style={{visibility: 'hidden'}} />
-                  </label>
-                </td>
-              </tr>
-            })
-          }
-          </tbody>
-        </table>
-        <br/><br/>
+      <div>
+        <div style={{ width: '350px', height: '50px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
+          <table>
+            <tbody>
+            {
+              storeBirdies.map((item, idx) => {
+                let radioValue = 'radio_'+item.id;
+                let fontWeight = item.id === showDescID ? 'bold' : 'normal';
+                return <tr key={idx}>
+                  <td width="120">
+                    <label style={{fontWeight}}>{item.name}
+                      <input type="checkbox" name={item.id} onClick={e => this._chgVal(e, item.id)}
+                             value={item.name} style={{visibility: 'hidden'}} />
+                    </label>
+                  </td><td>
+                    <button onClick={e => this._showDesc(e, item.id)}>DESC</button>
+                  </td><td style={{backgroundColor: 'lightGreen'}}>
+                    <label>{values[radioValue] === 'red' ? 'Grün' : '[Grün]'}
+                      <input type="radio" id={radioValue} name={radioValue}
+                             value="green" onClick={e => this._chgVal(e, radioValue)}
+                             style={{visibility: 'hidden'}} />
+                    </label>
+                  </td><td style={{backgroundColor: 'lightCoral'}}>
+                    <label>{values[radioValue] === 'red' ? '[Rot]' : 'Rot'}
+                      <input type="radio" id={radioValue} name={radioValue}
+                             value="red" onClick={e => this._chgVal(e, radioValue)}
+                             style={{visibility: 'hidden'}} />
+                    </label>
+                  </td>
+                </tr>
+              })
+            }
+            </tbody>
+          </table>
+          <br/><br/>
+          <span id="indicator" ref={ c => this.indicator = c } />
+        </div>
         <div id="descDiv">
         {
-          showDescID && this.getBirdyById(showDescID) ?
+          showDescID && this.getBirdyById(showDescID) &&
             <div style={{
               'backgroundColor': descriptionBgcolor,
               'width': '400px'
@@ -65,10 +70,8 @@ class Birdies extends Component {
                    ${this.getBirdyById(this.state.showDescID).desc}`
               }
             </div>
-          : null
         }
         </div>
-        <span id="indicator" ref={ c => this.indicator = c } />
       </div>
     );
   }
@@ -98,7 +101,8 @@ class Birdies extends Component {
   }
 
   getBirdyById(id) {
-    let filtered = this.props.birdies.filter(bird => {
+    console.log(this.props.storeBirdies);
+    let filtered = this.props.storeBirdies.filter(bird => {
       return id === bird.id;
     });
     return filtered[0];
