@@ -11,10 +11,6 @@ export const INITIAL_STATE = {
 const testReducer = function (state = {}, action) {
   switch (action.type) {
     case TEST:
-
-
-
-      //return respondere;
       asyncFunc().then(result => {console.log(result)},
         error => {console.log(error)});
       return [...action.data, ...state];
