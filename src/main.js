@@ -6,6 +6,7 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Birdies from './components/Birdies';
 import reducer, {INITIAL_STATE} from './reducers';
+import { store } from './store';
 
 let birdies = [
   {
@@ -68,12 +69,6 @@ let birdies = [
     desc: 'Bekannteste Möwe der Nordseeküste'
   }
 ];
-
-let store = createStore(
-  reducer,
-  INITIAL_STATE,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
 
 ReactDOM.render(
   <Provider store={store}>

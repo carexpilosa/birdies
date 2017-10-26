@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { testAction } from '../actions';
+import { testAction, getNextBirdiesFromRest } from '../actions';
 
 class Birdies extends Component {
   constructor(props) {
@@ -100,6 +100,7 @@ class Birdies extends Component {
     this.setState({
       values
     });
+    getNextBirdiesFromRest();
     let data = [{id: 'makapopoKladopo', name: 'Great Whisler', desc: 'kleener'}];
     this.props.testAction(data)
   }
