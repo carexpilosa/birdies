@@ -56,7 +56,7 @@ class Birdies extends Component {
             </tbody>
           </table>
           <br/><br/>
-          <span id="indicator" ref={ c => this.indicator = c } />
+          <span id="indicator" ref={ c => this.indicator = c }>&nbsp;</span>
         </div>
         <div id="descDiv">
         {
@@ -77,9 +77,13 @@ class Birdies extends Component {
   }
 
   scrollHandle(e) {
-    console.log('scrollHandle');
-    console.log(e.target.getBoundingClientRect().bottom);
-    console.log(this.indicator.getBoundingClientRect().bottom);
+    //console.log('scrollHandle');
+    //console.log(e.target.getBoundingClientRect().bottom);
+    //console.log(this.indicator.getBoundingClientRect().bottom);
+    if(this.indicator.getBoundingClientRect().bottom <
+       e.target.getBoundingClientRect().bottom) {
+      console.log('<<<<<<<<<<<<<<<<');
+    }
   }
 
   _showDesc(e, id) {

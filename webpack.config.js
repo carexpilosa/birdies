@@ -5,6 +5,7 @@ module.exports = {
     historyApiFallback: {
       index: '/public_html/'
     },
+    headers: { "Access-Control-Allow-Origin": "*" },
     open: true,
     openPage: ''
   },
@@ -19,6 +20,7 @@ module.exports = {
     filename: "bundle.js"
   },
   devtool: 'cheap-module-eval-source-map',
+
   module: {
     loaders: [
       {
