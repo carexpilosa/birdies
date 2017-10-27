@@ -10,16 +10,11 @@ export const INITIAL_STATE = {
   }
 };
 
-const testReducer = function (state = {}, action) {
+const birdyReducer = function (state = {}, action) {
   switch (action.type) {
-    case TEST:
-      asyncFunc().then(result => {console.log(result)},
-        error => {console.log(error)});
-      return [...action.data, ...state];
     case UPDATE_BIRDIES:
       let {list, offset, len, pageSize} = action.data;
       let newList = [...state.list, ...list];
-      console.log('pageSize => '+pageSize);
       return {
         list: newList,
         offset: offset,
@@ -32,7 +27,7 @@ const testReducer = function (state = {}, action) {
 }
 
 const reducer = combineReducers({
-  storeBirdies: testReducer
+  storeBirdies: birdyReducer
 });
 
 export default reducer;

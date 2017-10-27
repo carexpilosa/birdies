@@ -9,13 +9,14 @@ class Birdies extends Component {
     super(props);
     this.state = {
       values: {},
-      showDescID: ''
+      showDescID: '',
+      len: 2,
+      offset: 0
     }
   }
 
   componentDidMount() {
-    getNextBirdiesFromRest(this.props.storeBirdies.offset,
-      this.props.storeBirdies.len);
+    this._getNextBirdies();
   }
 
   render() {
@@ -23,7 +24,6 @@ class Birdies extends Component {
     let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
       ? 'lightCoral' : 'lightGreen';
     let {storeBirdies} = this.props;
-    console.log(storeBirdies.list);
     return (
       <div>
         <div style={{ width: '350px', height: '50px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
@@ -81,10 +81,10 @@ class Birdies extends Component {
   }
 
   scrollHandle(e) {
-    if(this.indicator.getBoundingClientRect().bottom <
-       e.target.getBoundingClientRect().bottom) {
-      getNextBirdiesFromRest(this.props.storeBirdies.offset + this.props.storeBirdies.len,
-        this.props.storeBirdies.len, this.props.storeBirdies.pageSize);
+    let indicatorBottom = this.indicator.getBoundingClientRect().bottom,
+        divBottom = e.target.getBoundingClientRect().bottom;
+    if(indicatorBottom < divBottom) {
+      this._getNextBirdies();
     }
   }
 
@@ -97,8 +97,7 @@ class Birdies extends Component {
   }
 
   _chgVal(e, id) {
-    getNextBirdiesFromRest(this.props.storeBirdies.offset + this.props.storeBirdies.len,
-      this.props.storeBirdies.len);
+
   }
 
   getBirdyById(id) {
@@ -106,6 +105,21 @@ class Birdies extends Component {
       return id === bird.id;
     });
     return filtered[0];
+  }
+
+  updateOffset() {
+    let {offset, len} = this.state;
+    this.setState({ offset: offset + len });
+  }
+
+  _getNextBirdies() {
+    if(!this.props.storeBirdies.pageSize
+       || (this.state.offset + this.state.len <
+           this.props.storeBirdies.pageSize)) {
+      this.updateOffset();
+      getNextBirdiesFromRest(this.state.offset + this.state.len, this.state.len,
+        this.props.storeBirdies.pageSize);
+    }
   }
 }
 
@@ -117,7 +131,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    testAction: (data) => dispatch(testAction(data))
+    //testAction: (data) => dispatch(testAction(data))
   };
 }
 

@@ -14,17 +14,10 @@ function dbConnect(params) {
     user: params.user,
     password: params.password
   });
-  client.query('USE ' + params.database);
+
   return( client );
 }
 
-
-let dbClient = dbConnect({
-  host: 'localhost',
-  user: 'root',
-  database: 'addressbook',
-  password: 'zM0dem'
-});
 
 app.listen(8000, function () {
   console.log('REST EXPRESS listening on port 8000!');
@@ -35,81 +28,29 @@ app.get('/', function (req, res) {
 });
 
 app.get('/birdies/:offset/:len', function (req, res) {
-  let birdies = {
-    list: [
-      {
-        id: 'turdusMerula',
-        name: 'Amsel',
-        desc: 'Schwarzes Vögelchen'},
-      {
-        id: 'turdusPhilomelos',
-        name: 'Sing-Drossel',
-        desc: 'Gesprenkelte Drossel'
-      },
-      {
-        id: 'fringillaCoelebs',
-        name: 'Buch-Fink',
-        desc: 'Häufigster Vogel Deutschlands'
-      },
-      {
-        id: 'sturnusVulgaris',
-        name: 'Star',
-        desc: 'Feind der Winzer und Obstbauern, spektakuläre Flugmanöver von Schwärmen'
-      },
-      {
-        id: 'corvusCorone',
-        name: 'Aas-Krähe',
-        desc: 'Nebel- und Raben-Krähe sind Unterarten'
-      },
-      {
-        id: 'dendrocoposMajor',
-        name: 'Bunt-Specht',
-        desc: 'häufigster Specht'
-      },
-      {
-        id: 'melanittaNigra',
-        name: 'Trauerente',
-        desc: 'Kleinste und leichteste der Melanitt-Arten'
-      },
-      {
-        id: 'falcoPeregrinus',
-        name: 'Wanderfalke',
-        desc: 'Schnellster Vogel: bis 360 km/h im Sturzflug'
-      },
-      {
-        id: 'falcoSubbuteo',
-        name: 'Baumfalke',
-        desc: 'Erinnert an riesigen Mauersegler'
-      },
-      {
-        id: 'limosaLimosa',
-        name: 'Uferschnepfe',
-        desc: 'hochbeinige, langhalsige, elegante Limikole'
-      },
-      {
-        id: 'TringaTotanus',
-        name: 'Rotschenkel',
-        desc: 'Wasserläufer ohne auffallende Kennzeichen'
-      },
-      {
-        id: 'larusArgentatus',
-        name: 'Silbermöwe',
-        desc: 'Bekannteste Möwe der Nordseeküste'
-      }
-    ],
-    offset: req.params.offset || 0,
-    len: req.params.len || 2
-  };
-  let birdiesListCopy = birdies.list.slice(birdies.offset, parseInt(birdies.offset, 10) + parseInt(birdies.len, 10));
-  let ret = {
-    list: birdiesListCopy,
-    offset: birdies.offset,
-    len: birdies.len,
-    pageSize: birdies.list.length
-  }
-  res.statusCode = 200;
-  //simulating low response with timeout:
-  setTimeout(() => {
-    res.send(JSON.stringify( ret ));
-  }, 2000);
+  //Database connection:
+  let connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'zM0dem'
+  });
+  connection.query('USE birdbase;');
+  connection.query("SELECT `id`, `name`, `desc` FROM birdies", function (err, result, fields) {
+    if (err) throw err;
+    let offset = req.params.offset || 0,
+        len = req.params.len || 2,
+        list = result.slice(offset, parseInt(offset, 10) + parseInt(len, 10));
+    let ret = {
+      list,
+      offset,
+      len,
+      pageSize: result.length
+    }
+    res.statusCode = 200;
+    //simulating low response with timeout:
+    setTimeout(() => {
+      res.send(JSON.stringify( ret ));
+    }, 2000);
+  });
+  connection.end();
 });
