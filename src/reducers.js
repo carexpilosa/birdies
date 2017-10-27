@@ -3,9 +3,11 @@ import { TEST, UPDATE_BIRDIES } from './actions';
 
 
 export const INITIAL_STATE = {
-  storeBirdies: [
-    //{id: 1, name: 'xxx', desc: 'derda isses, der da, ich weiß es genau'}
-  ]
+  storeBirdies: {
+    list: [],
+    offset: 0,
+    len: 2
+  }
 };
 
 const testReducer = function (state = {}, action) {
@@ -15,7 +17,13 @@ const testReducer = function (state = {}, action) {
         error => {console.log(error)});
       return [...action.data, ...state];
     case UPDATE_BIRDIES:
-      return [...state, ...action.birdies]
+      let {list, offset, len} = action.data;
+      let newList = [...state.list, ...list];
+      return {
+        list: newList,
+        offset: offset,
+        len: len
+      };
     default:
       return state;
   }

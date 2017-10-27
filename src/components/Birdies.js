@@ -14,7 +14,8 @@ class Birdies extends Component {
   }
 
   componentDidMount() {
-    getNextBirdiesFromRest();
+    getNextBirdiesFromRest(this.props.storeBirdies.offset,
+      this.props.storeBirdies.len);
   }
 
   render() {
@@ -22,13 +23,14 @@ class Birdies extends Component {
     let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
       ? 'lightCoral' : 'lightGreen';
     let {storeBirdies} = this.props;
+    console.log(storeBirdies.list);
     return (
       <div>
         <div style={{ width: '350px', height: '50px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
           <table>
             <tbody>
             {
-              storeBirdies.map((item, idx) => {
+              storeBirdies.list.map((item, idx) => {
                 let radioValue = 'radio_'+item.id;
                 let fontWeight = item.id === showDescID ? 'bold' : 'normal';
                 return <tr key={idx}>
@@ -81,7 +83,8 @@ class Birdies extends Component {
   scrollHandle(e) {
     if(this.indicator.getBoundingClientRect().bottom <
        e.target.getBoundingClientRect().bottom) {
-      getNextBirdiesFromRest();
+      getNextBirdiesFromRest(this.props.storeBirdies.offset + this.props.storeBirdies.len,
+        this.props.storeBirdies.len);
     }
   }
 
@@ -94,7 +97,8 @@ class Birdies extends Component {
   }
 
   _chgVal(e, id) {
-    getNextBirdiesFromRest();
+    getNextBirdiesFromRest(this.props.storeBirdies.offset + this.props.storeBirdies.len,
+      this.props.storeBirdies.len);
   }
 
   getBirdyById(id) {

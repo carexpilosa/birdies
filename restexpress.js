@@ -100,9 +100,14 @@ app.get('/birdies/:offset/:len', function (req, res) {
     offset: req.params.offset || 0,
     len: req.params.len || 2
   };
-  let resultArray = birdies.list.slice(birdies.offset, parseInt(birdies.offset, 10) + parseInt(birdies.len, 10));
+  let birdiesListCopy = birdies.list.slice(birdies.offset, parseInt(birdies.offset, 10) + parseInt(birdies.len, 10));
+  let ret = {
+    list: birdiesListCopy,
+    offset: birdies.offset,
+    offset: birdies.len
+  }
   res.statusCode = 200;
   setTimeout(() => {
-    res.send(JSON.stringify( resultArray ));
+    res.send(JSON.stringify( ret ));
   }, 2000);
 });
