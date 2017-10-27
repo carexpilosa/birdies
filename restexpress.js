@@ -27,7 +27,7 @@ let dbClient = dbConnect({
 });
 
 app.listen(8000, function () {
-  console.log('REST EXPRESS listening on port 3000!');
+  console.log('REST EXPRESS listening on port 8000!');
 });
 
 app.get('/', function (req, res) {
@@ -108,6 +108,7 @@ app.get('/birdies/:offset/:len', function (req, res) {
     pageSize: birdies.list.length
   }
   res.statusCode = 200;
+  //simulating low response with timeout:
   setTimeout(() => {
     res.send(JSON.stringify( ret ));
   }, 2000);
