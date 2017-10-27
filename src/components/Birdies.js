@@ -11,7 +11,8 @@ class Birdies extends Component {
       values: {},
       showDescID: '',
       len: 2,
-      offset: 0
+      offset: 0,
+      isLoading: true
     }
   }
 
@@ -26,7 +27,7 @@ class Birdies extends Component {
     let {storeBirdies} = this.props;
     return (
       <div>
-        <div style={{ width: '350px', height: '50px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
+        <div style={{ width: '350px', height: '150px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
           <table>
             <tbody>
             {
@@ -60,7 +61,12 @@ class Birdies extends Component {
             </tbody>
           </table>
           <br/><br/>
-          <span id="indicator" ref={ c => this.indicator = c }>&nbsp;</span>
+          <div style={{
+              height: '100px',
+              width: '350px',
+              display: 'table-cell',
+              verticalAlign: 'bottom',
+            }} id="indicator" ref={ c => this.indicator = c }>{this._showLoader() && <span>Loading ...</span>}</div>
         </div>
         <div id="descDiv">
         {
@@ -83,7 +89,8 @@ class Birdies extends Component {
   scrollHandle(e) {
     let indicatorBottom = this.indicator.getBoundingClientRect().bottom,
         divBottom = e.target.getBoundingClientRect().bottom;
-    if(indicatorBottom < divBottom) {
+    if(indicatorBottom <= divBottom) {
+      this.setState({isLoading: true});
       this._getNextBirdies();
     }
   }
@@ -113,13 +120,17 @@ class Birdies extends Component {
   }
 
   _getNextBirdies() {
-    if(!this.props.storeBirdies.pageSize
-       || (this.state.offset + this.state.len <
-           this.props.storeBirdies.pageSize)) {
+    if(this._showLoader) {
       this.updateOffset();
       getNextBirdiesFromRest(this.state.offset + this.state.len, this.state.len,
         this.props.storeBirdies.pageSize);
     }
+  }
+
+  _showLoader() {
+    return (!this.props.storeBirdies.pageSize
+            || (this.state.offset + this.state.len <
+                this.props.storeBirdies.pageSize));
   }
 }
 
