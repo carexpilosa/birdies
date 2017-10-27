@@ -18,8 +18,6 @@ class Birdies extends Component {
     let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
       ? 'lightCoral' : 'lightGreen';
     let {storeBirdies} = this.props;
-    console.log(showDescID);
-    console.log(this.getBirdyById(showDescID));
     return (
       <div>
         <div style={{ width: '350px', height: '50px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
@@ -77,12 +75,9 @@ class Birdies extends Component {
   }
 
   scrollHandle(e) {
-    //console.log('scrollHandle');
-    //console.log(e.target.getBoundingClientRect().bottom);
-    //console.log(this.indicator.getBoundingClientRect().bottom);
     if(this.indicator.getBoundingClientRect().bottom <
        e.target.getBoundingClientRect().bottom) {
-      console.log('<<<<<<<<<<<<<<<<');
+      getNextBirdiesFromRest();
     }
   }
 
@@ -95,18 +90,10 @@ class Birdies extends Component {
   }
 
   _chgVal(e, id) {
-    let values = this.state.values;
-    values[id] = e.target.value;
-    this.setState({
-      values
-    });
     getNextBirdiesFromRest();
-    let data = [{id: 'makapopoKladopo', name: 'Great Whisler', desc: 'kleener'}];
-    this.props.testAction(data)
   }
 
   getBirdyById(id) {
-    console.log(this.props.storeBirdies);
     let filtered = this.props.storeBirdies.filter(bird => {
       return id === bird.id;
     });
