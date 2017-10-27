@@ -13,6 +13,10 @@ class Birdies extends Component {
     }
   }
 
+  componentDidMount() {
+    getNextBirdiesFromRest();
+  }
+
   render() {
     let {values, showDescID} = this.state;
     let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
