@@ -104,7 +104,8 @@ app.get('/birdies/:offset/:len', function (req, res) {
   let ret = {
     list: birdiesListCopy,
     offset: birdies.offset,
-    offset: birdies.len
+    len: birdies.len,
+    pageSize: birdies.list.length
   }
   res.statusCode = 200;
   setTimeout(() => {

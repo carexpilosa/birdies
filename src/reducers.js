@@ -17,12 +17,14 @@ const testReducer = function (state = {}, action) {
         error => {console.log(error)});
       return [...action.data, ...state];
     case UPDATE_BIRDIES:
-      let {list, offset, len} = action.data;
+      let {list, offset, len, pageSize} = action.data;
       let newList = [...state.list, ...list];
+      console.log('pageSize => '+pageSize);
       return {
         list: newList,
         offset: offset,
-        len: len
+        len: len,
+        pageSize
       };
     default:
       return state;

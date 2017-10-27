@@ -84,7 +84,7 @@ class Birdies extends Component {
     if(this.indicator.getBoundingClientRect().bottom <
        e.target.getBoundingClientRect().bottom) {
       getNextBirdiesFromRest(this.props.storeBirdies.offset + this.props.storeBirdies.len,
-        this.props.storeBirdies.len);
+        this.props.storeBirdies.len, this.props.storeBirdies.pageSize);
     }
   }
 
@@ -102,7 +102,7 @@ class Birdies extends Component {
   }
 
   getBirdyById(id) {
-    let filtered = this.props.storeBirdies.filter(bird => {
+    let filtered = this.props.storeBirdies.list.filter(bird => {
       return id === bird.id;
     });
     return filtered[0];
