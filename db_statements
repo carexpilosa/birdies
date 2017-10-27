@@ -1,0 +1,21 @@
+CREATE TABLE birdies (
+  `id` VARCHAR (255),
+  `name` VARCHAR (255),
+  `desc` VARCHAR (255)
+);
+
+INSERT INTO birdies
+  (`id`, `name`, `desc`)
+  VALUES
+  ('turdusMerula', 'Amsel', 'Schwarzes Vögelchen'),
+  ('turdusPhilomelos', 'Sing-Drossel', 'Gesprenkelte Drossel'),
+  ('fringillaCoelebs', 'Buch-Fink', 'Häufigster Vogel Deutschlands'),
+  ('sturnusVulgaris', 'Star','Feind der Winzer und Obstbauern, spektakuläre Flugmanöver von Schwärmen'),
+  ('corvusCorone', 'Aas-Krähe', 'Nebel- und Raben-Krähe sind Unterarten'),
+  ('dendrocoposMajor', 'Bunt-Specht', 'häufigster Specht'),
+  ('melanittaNigra', 'Trauerente', 'Kleinste und leichteste der Melanitt-Arten'),
+  ('falcoPeregrinus', 'Wanderfalke', 'Schnellster Vogel: bis 360 km/h im Sturzflug'),
+  ('falcoSubbuteo', 'Baumfalke', 'Erinnert an riesigen Mauersegler'),
+  ('limosaLimosa', 'Uferschnepfe', 'hochbeinige, langhalsige, elegante Limikole'),
+  ('TringaTotanus', 'Rotschenkel', 'Wasserläufer ohne auffallende Kennzeichen'),
+  ('larusArgentatus', 'Silbermöwe', 'Bekannteste Möwe der Nordseeküste');
