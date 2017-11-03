@@ -40,19 +40,20 @@ export function _getNextBirdiesFromRest(offset, len, pageSize) {
 }
 
 export function getNextBirdiesFromRest(offset, len, pageSize) {
-  let url = `http://localhost:8000/birdies/${offset}/${len}`;
-  fetch(url).then(function(response) {
-    // Convert to JSON
-    return response.json();
-  }).then(function(birdies) {
-    store.dispatch({
-      type: UPDATE_BIRDIES,
-      data: {
-        list: birdies.list,
-        offset,
-        len,
-        pageSize: birdies.pageSize
-      }
+  return function(dispatch) {
+    let url = `http://localhost:8000/birdies/${offset}/${len}`;
+    fetch(url).then(function(response) {
+      return response.json();
+    }).then(function(birdies) {
+      dispatch({
+        type: UPDATE_BIRDIES,
+        data: {
+          list: birdies.list,
+          offset,
+          len,
+          pageSize: birdies.pageSize
+        }
+      });
     });
-  });
+  };
 }

@@ -122,7 +122,7 @@ class Birdies extends Component {
   _getNextBirdies() {
     if(this._showLoader) {
       this.updateOffset();
-      getNextBirdiesFromRest(this.state.offset + this.state.len, this.state.len,
+      this.props.getNextBirdiesFromRest(this.state.offset + this.state.len, this.state.len,
         this.props.storeBirdies.pageSize);
     }
   }
@@ -142,7 +142,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    //testAction: (data) => dispatch(testAction(data))
+    getNextBirdiesFromRest: function(offset, len, pageSize) {
+      dispatch(getNextBirdiesFromRest(offset, len, pageSize))
+    }
   };
 }
 
