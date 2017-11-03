@@ -41,20 +41,21 @@ export function _getNextBirdiesFromRest(offset, len, pageSize) {
 
 export function getNextBirdiesFromRest(offset, len, pageSize) {
   let url = `http://localhost:8000/birdies/${offset}/${len}`;
-  fetch(url).then(function(response) {
-    // Convert to JSON
-    return response.json();
-  }).then(function(birdies) {
-    store.dispatch({
-      type: UPDATE_BIRDIES,
-      data: {
-        list: birdies.list,
-        offset,
-        len,
-        pageSize: birdies.pageSize
-      }
+  fetch(url)
+    .then(function(response) {
+      // Convert to JSON
+      return response.json();
+    }).then(function(birdies) {
+      store.dispatch({
+        type: UPDATE_BIRDIES,
+        data: {
+          list: birdies.list,
+          offset,
+          len,
+          pageSize: birdies.pageSize
+        }
+      });
+    }).catch(function(error) {
+      console.log(error);
     });
-  }).catch(function(error) {
-    console.log(error);
-  });
 }

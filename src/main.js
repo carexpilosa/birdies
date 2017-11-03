@@ -1,13 +1,16 @@
 'use strict';
 
 import React from 'react';
-/*import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import Birdies from './components/Birdies';
-import ItemList from './components/ItemList';
-import reducer, {INITIAL_STATE} from './reducers';
 import { store } from './store';
+import ItemList from './components/ItemList';
+
+/*import {createStore} from 'redux';
+import Birdies from './components/Birdies';
+
+import reducer, {INITIAL_STATE} from './reducers';
+
 
 let birdies = [
   {

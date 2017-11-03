@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import { TEST, UPDATE_BIRDIES } from './actions';
+import { items, itemsHasErrored, itemsIsLoading } from './reducers/items';
 
 
 export const INITIAL_STATE = {
@@ -27,7 +28,10 @@ const birdyReducer = function (state = {}, action) {
 }
 
 const reducer = combineReducers({
-  storeBirdies: birdyReducer
+  storeBirdies: birdyReducer,
+  items,
+  itemsHasErrored,
+  itemsIsLoading
 });
 
 export default reducer;
