@@ -26,8 +26,8 @@ export function _getNextBirdiesFromRest(offset, len, pageSize) {
         });
       } else {
         json = JSON.parse(request.responseText);
+        console.log(json);
       }
-
     } else {
       console.log ('request has status => ' + request.status)
     }
@@ -54,5 +54,7 @@ export function getNextBirdiesFromRest(offset, len, pageSize) {
         pageSize: birdies.pageSize
       }
     });
+  }).catch(function(error) {
+    console.log(error);
   });
 }

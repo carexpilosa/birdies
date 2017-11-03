@@ -18,6 +18,9 @@ class Birdies extends Component {
 
   componentDidMount() {
     this._getNextBirdies();
+    window.addEventListener('scroll', function() {
+      console.log('SCROLL TOP: ' + document.documentElement.scrollTop);
+    })
   }
 
   render() {
@@ -25,6 +28,11 @@ class Birdies extends Component {
     let descriptionBgcolor = values['radio_' + this.state.showDescID] === 'red'
       ? 'lightCoral' : 'lightGreen';
     let {storeBirdies} = this.props;
+    let ary = [];
+    for (let i=0; i<100; i++) {
+      ary[i] = `ROW NUMBER => ${i}`;
+    }
+
     return (
       <div>
         <div style={{ width: '350px', height: '150px', overflowY: 'scroll', overflowX: 'hidden'}} onScroll={e => this.scrollHandle(e)}>
@@ -82,6 +90,15 @@ class Birdies extends Component {
             </div>
         }
         </div>
+        <table>
+          <tbody>
+          {
+            ary.map((val, idx) => {
+              return <tr key={idx}><td>{val}</td></tr>
+            })
+          }
+          </tbody>
+        </table>
       </div>
     );
   }

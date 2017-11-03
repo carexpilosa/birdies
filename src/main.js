@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+/*import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Birdies from './components/Birdies';
+import ItemList from './components/ItemList';
 import reducer, {INITIAL_STATE} from './reducers';
 import { store } from './store';
 
@@ -68,12 +69,15 @@ let birdies = [
     name: 'Silbermöwe',
     desc: 'Bekannteste Möwe der Nordseeküste'
   }
-];
+];*/
 
 ReactDOM.render(
   <Provider store={store}>
     <span>
-      <Birdies birdies={birdies} />
+      <ItemList/>
+      {
+        //<Birdies birdies={birdies} />
+      }
     </span>
   </Provider>,
   document.getElementById('app')
