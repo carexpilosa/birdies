@@ -2,7 +2,8 @@ import { store } from './store';
 
 export const TEST = 'TEST',
              GET_MORE_BIRDIES = 'GET_MORE_BIRDIES',
-             UPDATE_BIRDIES = 'UPDATE_BIRDIES';
+             UPDATE_BIRDIES = 'UPDATE_BIRDIES',
+             UPDATE_ISLOADING = 'UPDATE_ISLOADING';
 
 export function testAction(data) {
   return {type: TEST, data: [...data]};
@@ -51,9 +52,16 @@ export function getNextBirdiesFromRest(offset, len, pageSize) {
           list: birdies.list,
           offset,
           len,
-          pageSize: birdies.pageSize
+          pageSize: birdies.pageSize,
         }
       });
     });
+  };
+}
+
+export function setBirdiesIsLoading(isLoading) {
+  return {
+    type: UPDATE_ISLOADING,
+    isLoading
   };
 }

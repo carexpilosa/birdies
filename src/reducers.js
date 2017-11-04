@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import { TEST, UPDATE_BIRDIES } from './actions';
+import { TEST, UPDATE_BIRDIES, UPDATE_ISLOADING } from './actions';
 
 
 export const INITIAL_STATE = {
@@ -15,12 +15,23 @@ const birdyReducer = function (state = {}, action) {
     case UPDATE_BIRDIES:
       let {list, offset, len, pageSize} = action.data;
       let newList = [...state.list, ...list];
-      return {
+      let newState = {
         list: newList,
         offset: offset,
         len: len,
-        pageSize
+        pageSize,
       };
+      console.log(newState);
+      return newState;
+    default:
+      return state;
+  }
+}
+
+const isLoadingReducer = function(state, action) {
+  switch (action.type) {
+    case UPDATE_ISLOADING:
+      return action.isLoading;
     default:
       return state;
   }

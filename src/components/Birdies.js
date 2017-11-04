@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { testAction, getNextBirdiesFromRest } from '../actions';
+import { testAction, getNextBirdiesFromRest, setBirdiesIsLoading } from '../actions';
 
 class Birdies extends Component {
   constructor(props) {
@@ -12,7 +12,6 @@ class Birdies extends Component {
       showDescID: '',
       len: 2,
       offset: 0,
-      isLoading: true
     }
   }
 
@@ -82,6 +81,7 @@ class Birdies extends Component {
             </div>
         }
         </div>
+        <div style={{position: 'absolute', 'top': '300px', 'left': '20px'}}>{this.props.isLoading ? 'isLoading ...' : '---'}</div>
       </div>
     );
   }
@@ -90,7 +90,8 @@ class Birdies extends Component {
     let indicatorBottom = this.indicator.getBoundingClientRect().bottom,
         divBottom = e.target.getBoundingClientRect().bottom;
     if(indicatorBottom <= divBottom) {
-      this.setState({isLoading: true});
+      //this.setState({isLoading: true});
+      this.setBirdiesIsLoading(true);
       this._getNextBirdies();
     }
   }
@@ -136,12 +137,17 @@ class Birdies extends Component {
 
 function mapStateToProps(state) {
   return {
-    storeBirdies: state.storeBirdies
+    storeBirdies: state.storeBirdies,
+    isLoading: state.storeBirdies.isLoading
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchMembers: () => dispatch(loadMembers()),
+    setBirdiesIsLoading: function(isLoadingVal) {
+      dispatch(setBirdiesIsLoading(isLoadingVal))
+    },
     getNextBirdiesFromRest: function(offset, len, pageSize) {
       dispatch(getNextBirdiesFromRest(offset, len, pageSize))
     }
