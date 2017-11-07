@@ -5,7 +5,7 @@ let express = require('express'),
     cors = require('cors'),
     app = express();
 
-app.use(cors())
+app.use(cors());
 
 
 function dbConnect(params) {
@@ -18,7 +18,6 @@ function dbConnect(params) {
   return( client );
 }
 
-
 app.listen(8000, function () {
   console.log('REST EXPRESS listening on port 8000!');
 });
@@ -27,7 +26,7 @@ app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.get('/birdies/:offset/:len', function (req, res) {
+app.get('/birdies/:offset/:len', (req, res) => {
   //Database connection:
   let connection = mysql.createConnection({
     host: 'localhost',
@@ -54,3 +53,35 @@ app.get('/birdies/:offset/:len', function (req, res) {
   });
   connection.end();
 });
+
+app.get('/choice_of_choice', (req, res) => {
+  res.statusCode = 200;
+  res.send(JSON.stringify({
+    'DA1': {
+      values: {
+        A: 'A',
+        B: 'B',
+        C: 'C'
+      }
+    },
+    'DA2': {
+      'dep': {
+        name: 'DA1',
+        values: {
+          'A': [
+            'Atze',
+            'Anton',
+            'Akne'
+          ],
+          'B': [
+            'Brühe',
+            'Bertha',
+            'Boule',
+            'Burkina Faso'
+          ]
+        }
+      }
+    }
+  }));
+});
+

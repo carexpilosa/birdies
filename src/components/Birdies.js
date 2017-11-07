@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import Choices from './Choices';
 import { testAction, getNextBirdiesFromRest, setBirdiesIsLoading } from '../actions';
 
 class Birdies extends Component {
@@ -81,7 +82,8 @@ class Birdies extends Component {
             </div>
         }
         </div>
-        <div style={{position: 'absolute', 'top': '300px', 'left': '20px'}}>{this.props.isLoading ? 'isLoading ...' : '---'}</div>
+        <div style={{position: 'absolute', 'top': '300px', 'left': '20px'}}>{this.props.storeBirdies.isLoading ? 'is loading ...' : 'is NOT loading.'}</div>
+        <Choices />
       </div>
     );
   }
@@ -90,8 +92,6 @@ class Birdies extends Component {
     let indicatorBottom = this.indicator.getBoundingClientRect().bottom,
         divBottom = e.target.getBoundingClientRect().bottom;
     if(indicatorBottom <= divBottom) {
-      //this.setState({isLoading: true});
-      this.setBirdiesIsLoading(true);
       this._getNextBirdies();
     }
   }
@@ -122,6 +122,7 @@ class Birdies extends Component {
 
   _getNextBirdies() {
     if(this._showLoader) {
+      this.props.setBirdiesIsLoading(true);
       this.updateOffset();
       this.props.getNextBirdiesFromRest(this.state.offset + this.state.len, this.state.len,
         this.props.storeBirdies.pageSize);
@@ -129,22 +130,20 @@ class Birdies extends Component {
   }
 
   _showLoader() {
-    return (!this.props.storeBirdies.pageSize
-            || (this.state.offset + this.state.len <
-                this.props.storeBirdies.pageSize));
+    return (this.props.storeBirdies.isLoading);
   }
 }
 
 function mapStateToProps(state) {
   return {
     storeBirdies: state.storeBirdies,
-    isLoading: state.storeBirdies.isLoading
+    //isLoading: state.storeBirdies.isLoading
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchMembers: () => dispatch(loadMembers()),
+    //fetchMembers: () => dispatch(loadMembers()),
     setBirdiesIsLoading: function(isLoadingVal) {
       dispatch(setBirdiesIsLoading(isLoadingVal))
     },

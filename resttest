@@ -1,0 +1,15 @@
+GET http://localhost:8000/
+
+###
+
+GET http://localhost:8000/choice_of_choice
+
+###
+
+GET http://localhost:8000/birdies/0/3
+
+###
+
+GET http://localhost:8000/birdies/6/1
+
+###

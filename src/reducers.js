@@ -6,12 +6,18 @@ export const INITIAL_STATE = {
   storeBirdies: {
     list: [],
     offset: 0,
-    len: 2
+    len: 2,
+    isLoading: false
   }
 };
 
 const birdyReducer = function (state = {}, action) {
   switch (action.type) {
+    case UPDATE_ISLOADING:
+      let nState = {...state};
+      nState.isLoading = action.isLoading;
+      console.log(nState);
+      return nState;
     case UPDATE_BIRDIES:
       let {list, offset, len, pageSize} = action.data;
       let newList = [...state.list, ...list];
@@ -20,18 +26,9 @@ const birdyReducer = function (state = {}, action) {
         offset: offset,
         len: len,
         pageSize,
+        isLoading: false
       };
-      console.log(newState);
       return newState;
-    default:
-      return state;
-  }
-}
-
-const isLoadingReducer = function(state, action) {
-  switch (action.type) {
-    case UPDATE_ISLOADING:
-      return action.isLoading;
     default:
       return state;
   }
