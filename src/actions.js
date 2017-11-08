@@ -59,6 +59,12 @@ export function getNextBirdiesFromRest(offset, len, pageSize) {
   };
 }
 
+//export async function __getNextBirdiesFromRest(offset, len, pageSize) {
+//  let url = `http://localhost:8000/birdies/${offset}/${len}`;
+//  await fetch(url);
+//  let data = await response.json;
+//}
+
 export function setBirdiesIsLoading(isLoading) {
   console.log('action isLoading set to => ' + isLoading);
   return {
