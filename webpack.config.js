@@ -36,7 +36,6 @@ module.exports = {
 
         // Options to configure babel with
         query: {
-          plugins: ['transform-async-to-generator'],
           presets: ['env', 'react', 'stage-0', 'es2017'],
         }
       },

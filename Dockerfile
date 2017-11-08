@@ -12,6 +12,6 @@ ADD ./servers.sh ./servers.sh
 EXPOSE 8000
 EXPOSE 3001
 RUN npm install
+RUN npm install pm2 -g
 
-CMD ["npm", "run", "build"]
-#CMD ["servers.sh"]
+CMD ./servers.sh

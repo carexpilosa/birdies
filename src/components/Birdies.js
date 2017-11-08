@@ -82,7 +82,12 @@ class Birdies extends Component {
             </div>
         }
         </div>
-        <div style={{position: 'absolute', 'top': '300px', 'left': '20px'}}>{this.props.storeBirdies.isLoading ? 'is loading ...' : 'is NOT loading.'}</div>
+        <div style={{
+          position: 'absolute',
+          'top': '300px',
+          'left': '20px'
+        }}>{this.props.storeBirdies.isLoading
+           ? 'is loading ...' : 'is NOT loading.'}</div>
         <Choices />
       </div>
     );
@@ -91,7 +96,9 @@ class Birdies extends Component {
   scrollHandle(e) {
     let indicatorBottom = this.indicator.getBoundingClientRect().bottom,
         divBottom = e.target.getBoundingClientRect().bottom;
-    if(indicatorBottom <= divBottom) {
+    if(indicatorBottom <= divBottom
+       && this.state.offset + this.state.len 
+          < this.props.storeBirdies.pageSize) {
       this._getNextBirdies();
     }
   }

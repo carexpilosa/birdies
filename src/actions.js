@@ -66,7 +66,6 @@ export function getNextBirdiesFromRest(offset, len, pageSize) {
 //}
 
 export function setBirdiesIsLoading(isLoading) {
-  console.log('action isLoading set to => ' + isLoading);
   return {
     type: UPDATE_ISLOADING,
     isLoading

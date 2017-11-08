@@ -12,16 +12,16 @@ export const INITIAL_STATE = {
 };
 
 const birdyReducer = function (state = {}, action) {
+  let newState;
   switch (action.type) {
     case UPDATE_ISLOADING:
-      let nState = {...state};
-      nState.isLoading = action.isLoading;
-      console.log(nState);
-      return nState;
+      newState = {...state};
+      newState.isLoading = action.isLoading;
+      return newState;
     case UPDATE_BIRDIES:
       let {list, offset, len, pageSize} = action.data;
       let newList = [...state.list, ...list];
-      let newState = {
+      newState = {
         list: newList,
         offset: offset,
         len: len,
