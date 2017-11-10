@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+  label :active {
+    color:blueviolet
+  }
+
+  #radio1 {
+    display: none;
+  }
+
+  input[type=checkbox] {
+    visibility: hidden
+  }
+  div {
+    background: green;
+    width: 400px;
+    height: 100px;
+    line-height: 100px;
+    color: white;
+    text-align: center;
+  }
+  input[type=checkbox]:checked ~ div {
+    background: red;
+  }
+  </style>
+  <script>
+  function toggleLabelColor() {
+    if (document.forms['myForm'].elements['radBut'].value === 'eins') {
+      document.getElementById('uno').style.color = 'green';
+      document.getElementById('due').style.color = 'red';
+    } else {
+      document.getElementById('uno').style.color = 'red';
+      document.getElementById('due').style.color = 'green';
+    }
+  }
+  </script>
+  <title>Document</title>
+</head>
+<body>
+  <form name="myForm">
+    <label id="uno">
+      ein Label
+      <input onClick="toggleLabelColor()" type="radio"
+        id="radBut" name="radBut" value="eins" checked="checked"
+        style="visibility: hidden" />
+    </label>
+    <label id="due">
+      noch ein Label
+      <input onClick="toggleLabelColor()" type="radio"
+        id="radBut" name="radBut" value="zwo"
+        style="visibility: hidden" />
+    </label>
+
+    <br /><br />
+    <input id=radio1 name=testradios type=radio><label for=radio1>radio1</label>
+    <br>
+    <input id=radio2 name=testradios type=radio><label for=radio2>radio2</label>
+
+    <br /><br />
+    <label for="toggle-1">Do Something</label>
+    <input type="checkbox" id="toggle-1">
+    <div>Control me</div>
+  </form>
+</body>
+</html>
