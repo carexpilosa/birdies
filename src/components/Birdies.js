@@ -112,9 +112,20 @@ class Birdies extends Component {
   }
 
   _chgVal(e, id) {
-
+    let values = this.state.values;
+    /*if(! values[id]) {
+      values[id] = [];
+    }
+    if (! values[id].includes(e.target.value)) {
+      values[id].push(e.target.value);
+    }*/
+    values[id] = e.target.value;
+    this.setState({
+      values
+    });
+    console.log(this.state.values);
   }
-
+    
   getBirdyById(id) {
     let filtered = this.props.storeBirdies.list.filter(bird => {
       return id === bird.id;
